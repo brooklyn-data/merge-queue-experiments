@@ -1,0 +1,31 @@
+name: Update release window gate
+
+on:
+  schedule:
+    # Top half of every hour during week days
+    - cron: "0,30 * * * 1-5"
+    workflow_dispatch:
+
+
+jobs:
+    update-release-gate:
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/download-artifact@v3
+              with:
+                name: release-gate
+                path: release-gate.txt
+
+            - name: Generate artifact
+              # Check if release-gate.txt contains the word "open" or "closed"
+                run: |
+                    if grep -q "open" release-gate.txt; then
+                    echo "closed" > release-gate.txt
+                    else
+                    echo "closed" > release-gate.txt
+                    fi
+                    
+            - uses: actions/upload-artifact@v3
+              with:
+                name: release-gate
+                path: release-gate.txt

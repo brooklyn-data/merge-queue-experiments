@@ -22,9 +22,12 @@ jobs:
                     if grep -q "open" release-gate.txt; then
                     echo "closed" > release-gate.txt
                     else
-                    echo "closed" > release-gate.txt
+                      if grep -q "closed" release-gate.txt; then
+                        echo "open" > release-gate.txt
+                      else
+                      fi
                     fi
-                    
+
             - uses: actions/upload-artifact@v3
               with:
                 name: release-gate

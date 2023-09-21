@@ -2,6 +2,8 @@ name: CI checks
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  merge_group:
+    types: [checks_requested]
 
 jobs:
     is-release-allowed:

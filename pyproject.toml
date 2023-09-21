@@ -18,3 +18,5 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 hello = "src.main:say_hello"
+goodbye = "src.main:say_goodbye"
+

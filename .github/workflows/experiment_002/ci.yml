@@ -1,5 +1,6 @@
 name: CI checks
 on:
+  push:
   pull_request:
   merge_group:
     branches: [ main ]

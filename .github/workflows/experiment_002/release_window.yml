@@ -1,6 +1,7 @@
 name: Update release window gate
 
 on:
+  push:
   schedule:
     # Top half of every hour during week days
     - cron: "0,30 * * * 1-5"

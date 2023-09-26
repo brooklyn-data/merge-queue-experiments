@@ -1,6 +1,5 @@
 name: CI checks
 on:
-  push:
   pull_request:
   merge_group:
     branches: [ main ]
@@ -12,10 +11,12 @@ jobs:
         - name: checkout repo
           uses: actions/checkout@v3
         - name: download release artifact
-          uses: actions/download-artifact@v3
+          uses: dawidd6/action-download-artifact@v2
           with:
+            workflow: releease_window_002.yml
             name: release-gate
             path: release-gate.txt
+            if_no_artifact_found: fail
 
         - name: Check if release allowed
           run: |

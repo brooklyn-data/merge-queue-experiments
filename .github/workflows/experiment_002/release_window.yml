@@ -4,7 +4,7 @@ on:
   schedule:
     # Top half of every hour during week days
     - cron: "0,30 * * * 1-5"
-    workflow_dispatch:
+  workflow_dispatch:
 
 
 jobs:

@@ -1,0 +1,26 @@
+name: CI checks
+on:
+  push:
+  pull_request:
+  merge_group:
+    branches: [ main ]
+
+jobs:
+    is-release-allowed:
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout repo
+          uses: actions/checkout@v3
+        - name: download release artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: release-gate
+            path: release-gate.txt
+
+        - name: Check if release allowed
+          run: |
+            if [ "$(cat release-gate.txt)" == "open" ]; then
+            exit 0
+            else
+            exit 1
+            fi

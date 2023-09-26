@@ -10,16 +10,20 @@ on:
 
 jobs:
     update-release-gate:
+        runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/download-artifact@v3
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Download release artifact
+              uses: actions/download-artifact@v3
               with:
                 name: release-gate
                 path: release-gate.txt
 
             - name: Generate artifact
               # Check if release-gate.txt contains the word "open" or "closed"
-                run: |
+              run: |
                     if grep -q "open" release-gate.txt; then
                     echo "closed" > release-gate.txt
                     else
@@ -29,7 +33,8 @@ jobs:
                       fi
                     fi
 
-            - uses: actions/upload-artifact@v3
+            - name: Upload release artifact
+              uses: actions/upload-artifact@v3
               with:
                 name: release-gate
                 path: release-gate.txt

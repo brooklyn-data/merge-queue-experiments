@@ -6,10 +6,12 @@ authors = ["BDC"]
 readme = "README.md"
 packages = [
     { include = "src" },
+    { include = "scripts" }
 ]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+click = "^8.1.7"
 
 
 [build-system]
@@ -19,4 +21,6 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 hello = "src.main:say_hello"
 goodbye = "src.main:say_goodbye"
+check-release-gate = "scripts.ci:check_release_gate"
+
 

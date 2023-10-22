@@ -1,27 +1,25 @@
 name: CI checks
 on:
   pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+      - unlabeled
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
   merge_group:
     branches: [ main ]
 
 jobs:
-    is-release-allowed:
-      runs-on: ubuntu-latest
-      steps:
-        - name: checkout repo
-          uses: actions/checkout@v3
-        - name: download release artifact
-          uses: dawidd6/action-download-artifact@v2
-          with:
-            workflow: releease_window_002.yml
-            name: release-gate
-            path: release-gate.txt
-            if_no_artifact_found: fail
-
-        - name: Check if release allowed
-          run: |
-            if [ "$(cat release-gate.txt)" == "open" ]; then
-            exit 0
-            else
-            exit 1
-            fi
+  block:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: yykamei/block-merge-based-on-time@main
+        with:
+          timezone: UTC
+          after: "11:30"
+          before: 08:00
+          base-branches: "(default)"

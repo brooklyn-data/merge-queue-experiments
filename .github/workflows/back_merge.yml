@@ -1,0 +1,22 @@
+name: Deployment workflows
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  back-merge-to-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # TODO
+      # - name: Merge to staging
+      #   run: |
+      #     git pull origin main
+      #     git checkout staging
+      #     git merge main --no-ff --no-edit
+
+

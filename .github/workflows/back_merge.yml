@@ -12,11 +12,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      # TODO
-      # - name: Merge to staging
-      #   run: |
-      #     git pull origin main
-      #     git checkout staging
-      #     git merge main --no-ff --no-edit
+      - name: Add merge commit to staging
+        run: |
+          git fetch
+          git pull origin main
+          git checkout staging && git pull origin staging
+          git merge main --ff-only --no-edit
+          git push origin staging --force
 
 

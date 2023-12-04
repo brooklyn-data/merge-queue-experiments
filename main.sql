@@ -42,6 +42,7 @@ with users as (
         u.last_date >= '2019-01-01'
     and
         u.last_date <= '2019-12-31'
+    qualify row_number() over (partition by u.user_id order by u.first_date) = 1
 )
 
 select count(*) as monthly_active_users

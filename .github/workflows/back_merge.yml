@@ -7,6 +7,8 @@ on:
 jobs:
   back-merge-to-staging:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -14,6 +16,8 @@ jobs:
 
       - name: Add merge commit to staging
         run: |
+          git config user.name dluftspring
+          git config user.email daniel.luftspring@brooklyndata.co
           git fetch
           git pull origin main
           git checkout staging && git pull origin staging
